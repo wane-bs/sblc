@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCB Dashboard: Phân tích Nghiệp vụ SBLC & L/C</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- Header -->
+        <header class="mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Phân tích Đối sánh L/C & SBLC</h1>
+                    <p class="text-sm text-slate-500 mt-1">Dữ liệu Cam kết Ngoại bảng Vietcombank (Giai đoạn 2022 - 2024)</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center space-x-2">
+                    <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">Báo cáo Thường niên</span>
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">IR Dept.</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- KPI 1 -->
+            <div class="card p-6 border-l-4 border-l-slate-400">
+                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Quy mô L/C (2024)</h3>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-slate-800">76.546</span>
+                    <span class="text-sm text-slate-500">Tỷ VNĐ</span>
+                </div>
+                <div class="mt-2 text-sm text-red-600 flex items-center font-medium">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                    CAGR: -10.3%
+                </div>
+            </div>
+            
+            <!-- KPI 2 -->
+            <div class="card p-6 border-l-4 border-l-emerald-500">
+                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Quy mô SBLC (2024)</h3>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-slate-800">53.731</span>
+                    <span class="text-sm text-slate-500">Tỷ VNĐ</span>
+                </div>
+                <div class="mt-2 text-sm text-emerald-600 flex items-center font-medium">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    CAGR: +13.7%
+                </div>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="card p-6 border-l-4 border-l-blue-500">
+                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Tỷ lệ L/C trên SBLC</h3>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold text-slate-800" id="ratio-display">1.42</span>
+                    <span class="text-sm text-slate-500">lần</span>
+                </div>
+                <div class="mt-2 text-sm text-slate-500 flex items-center">
+                    Giảm từ 2.29 lần (2022)
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Cột (Bar Chart) -->
+            <div class="card p-6">
+                <h2 class="text-base font-semibold text-slate-800 mb-4">So sánh Quy mô (Biểu đồ Cột)</h2>
+                <div class="relative h-72 w-full">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <!-- Đường (Line Chart) -->
+            <div class="card p-6">
+                <h2 class="text-base font-semibold text-slate-800 mb-4">Xu hướng Biến động (Biểu đồ Đường)</h2>
+                <div class="relative h-72 w-full">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Assessment Section -->
+        <div class="card p-6 mt-6">
+            <h2 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">Phân tích Chuyên sâu (Đánh giá Cơ bản)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-semibold text-emerald-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Nghiệp vụ SBLC (Động lực mới)
+                    </h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 list-disc pl-5">
+                        <li><strong class="text-slate-800">Điểm mạnh:</strong> Khẳng định năng lực bảo lãnh tài trợ dự án hạ tầng lớn. Tối ưu hóa an toàn vốn (CAR) và phí dịch vụ ngoại bảng. Khai thác tốt tệp khách hàng FDI và dự án năng lượng xanh.</li>
+                        <li><strong class="text-slate-800">Điểm yếu:</strong> Rủi ro đánh giá nghĩa vụ thực hiện hợp đồng phức tạp hơn so với rủi ro chứng từ L/C. Đòi hỏi năng lực pháp lý và quản trị thanh khoản ngoại tệ tức thời cao.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-slate-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                        Nghiệp vụ L/C (Chân đế truyền thống)
+                    </h3>
+                    <ul class="mt-3 space-y-2 text-sm text-slate-600 list-disc pl-5">
+                        <li><strong class="text-slate-800">Điểm mạnh:</strong> Duy trì thị phần tuyệt đối trong TTQT-TTTM. Quy trình vận hành chuẩn hóa cao (Swift), nguồn thu phí ngoại tệ ổn định qua các chu kỳ.</li>
+                        <li><strong class="text-slate-800">Điểm yếu:</strong> Dễ bị tổn thương bởi suy giảm tổng cầu thương mại toàn cầu (giảm ~10%/năm gần đây). Cạnh tranh gay gắt về phí phát hành từ các NHTM tư nhân và ngân hàng ngoại.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Chart Configuration Script -->
+    <script>
+        // Dữ liệu từ báo cáo
+        const labels = ['2022', '2023', '2024'];
+        
+        // Dữ liệu (Quy đổi sang Tỷ VNĐ cho biểu đồ hiển thị đẹp hơn)
+        // 2022: L/C ~95,191, SBLC ~41,568
+        // 2023: L/C ~84,748, SBLC ~48,477
+        // 2024: L/C ~76,546, SBLC ~53,731
+        const dataLC = [95191, 84748, 76546]; 
+        const dataSBLC = [41568, 48477, 53731];
+
+        // Cấu hình chung
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        // 1. Khởi tạo Biểu đồ Cột (Bar Chart)
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'L/C Thương mại',
+                        data: dataLC,
+                        backgroundColor: '#94a3b8', // Slate 400
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'SBLC (Bảo lãnh khác)',
+                        data: dataSBLC,
+                        backgroundColor: '#10b981', // Emerald 500
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('vi-VN').format(context.parsed.y) + ' Tỷ đ';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [4, 4] },
+                        ticks: {
+                            callback: function(value) { return value / 1000 + 'k'; }
+                        }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Khởi tạo Biểu đồ Đường (Line Chart)
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'L/C Thương mại',
+                        data: dataLC,
+                        borderColor: '#64748b', // Slate 500
+                        backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#64748b',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'SBLC (Bảo lãnh khác)',
+                        data: dataSBLC,
+                        borderColor: '#10b981', // Emerald 500
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#10b981',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('vi-VN').format(context.parsed.y) + ' Tỷ đ';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [4, 4] },
+                        ticks: {
+                            callback: function(value) { return value / 1000 + 'k'; }
+                        }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
