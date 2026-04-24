@@ -13,160 +13,291 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
         }
         .card {
             background: #ffffff;
-            border-radius: 0.75rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
             border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .layer-title {
+            position: relative;
+            display: inline-block;
+        }
+        .layer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 4px;
+            width: 48px;
+            border-radius: 2px;
+        }
+        .layer-title-1::after { background-color: #10b981; }
+        .layer-title-2::after { background-color: #3b82f6; }
+        .layer-title-3::after { background-color: #f59e0b; }
     </style>
 </head>
 <body class="text-slate-800 antialiased p-4 md:p-8">
 
-    <div class="max-w-7xl mx-auto space-y-6">
+    <div class="max-w-6xl mx-auto space-y-12">
         
         <!-- Header -->
-        <header class="mb-8">
+        <header class="bg-gradient-to-r from-emerald-800 to-teal-900 rounded-2xl p-8 text-white shadow-lg">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Phân tích Đối sánh L/C & SBLC</h1>
-                    <p class="text-sm text-slate-500 mt-1">Dữ liệu Cam kết Ngoại bảng Vietcombank (Giai đoạn 2022 - 2024)</p>
-                </div>
-                <div class="mt-4 md:mt-0 flex items-center space-x-2">
-                    <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">Báo cáo Thường niên</span>
-                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">IR Dept.</span>
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="px-3 py-1 bg-emerald-500/30 text-emerald-100 text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-sm">IR Report 2024</span>
+                        <span class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase tracking-wider rounded-full backdrop-blur-sm">Vietcombank</span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Phân tích Đối sánh L/C & SBLC</h1>
+                    <p class="text-emerald-100 mt-2 text-sm md:text-base opacity-90 max-w-2xl">Báo cáo bóc tách mảng tài trợ thương mại từ tổng quan định lượng, hiệu quả hoạt động, đến phân tích chi tiết tỷ suất lợi nhuận (Giai đoạn 2022 - 2024).</p>
                 </div>
             </div>
         </header>
 
-        <!-- KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- KPI 1 -->
-            <div class="card p-6 border-l-4 border-l-slate-400">
-                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Quy mô L/C (2024)</h3>
-                <div class="mt-2 flex items-baseline gap-2">
-                    <span class="text-3xl font-bold text-slate-800">76.546</span>
-                    <span class="text-sm text-slate-500">Tỷ VNĐ</span>
-                </div>
-                <div class="mt-2 text-sm text-red-600 flex items-center font-medium">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
-                    CAGR: -10.3%
-                </div>
-            </div>
+        <!-- LỚP 1: SỰ CHUYỂN DỊCH CƠ CẤU -->
+        <section class="space-y-6 relative">
+            <div class="absolute -left-6 top-0 w-1.5 h-full bg-emerald-500 rounded-full hidden md:block opacity-50"></div>
             
-            <!-- KPI 2 -->
-            <div class="card p-6 border-l-4 border-l-emerald-500">
-                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Quy mô SBLC (2024)</h3>
-                <div class="mt-2 flex items-baseline gap-2">
-                    <span class="text-3xl font-bold text-slate-800">53.731</span>
-                    <span class="text-sm text-slate-500">Tỷ VNĐ</span>
-                </div>
-                <div class="mt-2 text-sm text-emerald-600 flex items-center font-medium">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    CAGR: +13.7%
-                </div>
-            </div>
+            <div class="pl-0 md:pl-2">
+                <h2 class="text-2xl font-bold text-slate-800 layer-title layer-title-1 mb-8">Lớp 1: Phân tích Định lượng - Sự Chuyển dịch Cơ cấu</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="card p-6 border-t-4 border-t-slate-500">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Quy mô L/C Thương mại (2024)</h3>
+                        <div class="mt-3 flex items-end gap-2">
+                            <span class="text-4xl font-extrabold text-slate-700">49.750</span>
+                            <span class="text-sm font-medium text-slate-500 mb-1">Tỷ VNĐ</span>
+                        </div>
+                        <div class="mt-3 text-sm text-red-600 flex items-center font-semibold bg-red-50 p-2 rounded-lg w-max">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                            Giảm 41,3% so với 2022
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6 border-t-4 border-t-emerald-500">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Quy mô Bảo lãnh khác - SBLC (2024)</h3>
+                        <div class="mt-3 flex items-end gap-2">
+                            <span class="text-4xl font-extrabold text-emerald-600">58.052</span>
+                            <span class="text-sm font-medium text-slate-500 mb-1">Tỷ VNĐ</span>
+                        </div>
+                        <div class="mt-3 text-sm text-emerald-600 flex items-center font-semibold bg-emerald-50 p-2 rounded-lg w-max">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            Tăng 19,7% so với 2022
+                        </div>
+                    </div>
 
-            <!-- KPI 3 -->
-            <div class="card p-6 border-l-4 border-l-blue-500">
-                <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider">Tỷ lệ L/C trên SBLC</h3>
-                <div class="mt-2 flex items-baseline gap-2">
-                    <span class="text-3xl font-bold text-slate-800" id="ratio-display">1.42</span>
-                    <span class="text-sm text-slate-500">lần</span>
+                    <div class="card p-6 border-t-4 border-t-indigo-500 bg-indigo-50/40">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tỷ trọng SBLC / Tổng (2024)</h3>
+                        <div class="mt-3 flex items-end gap-2">
+                            <span class="text-4xl font-extrabold text-indigo-700">53,8%</span>
+                        </div>
+                        <div class="mt-3 text-sm text-indigo-800 flex items-center font-medium">
+                            Đảo chiều cấu trúc ngoạn mục
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-2 text-sm text-slate-500 flex items-center">
-                    Giảm từ 2.29 lần (2022)
-                </div>
-            </div>
-        </div>
 
-        <!-- Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Cột (Bar Chart) -->
-            <div class="card p-6">
-                <h2 class="text-base font-semibold text-slate-800 mb-4">So sánh Quy mô (Biểu đồ Cột)</h2>
-                <div class="relative h-72 w-full">
-                    <canvas id="barChart"></canvas>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="card p-6 lg:col-span-2">
+                        <h3 class="text-base font-bold text-slate-800 mb-4">Cơ cấu L/C và SBLC (Tỷ lệ %)</h3>
+                        <div class="relative h-72 w-full">
+                            <canvas id="structureChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card p-6 bg-slate-800 text-slate-100 flex flex-col justify-center">
+                        <h4 class="text-emerald-400 font-bold mb-3 flex items-center text-lg">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Insight Chuyển dịch
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-300">
+                            Năm 2024 chứng kiến một điểm uốn quan trọng (inflection point) khi quy mô SBLC (58.052 tỷ VNĐ) chính thức <strong class="text-white">vượt qua</strong> L/C thương mại truyền thống (49.750 tỷ VNĐ).
+                            <br><br>
+                            Sự sụt giảm hơn 41% của L/C trong 2 năm phản ánh bức tranh đình trệ của thương mại hàng hóa toàn cầu. Ngược lại, SBLC duy trì đà tăng trưởng bền bỉ (~20%), cho thấy VCB đã thành công trong việc chuyển trục sang phục vụ các đại dự án hạ tầng, năng lượng tái tạo, và dòng vốn FDI – nơi SBLC đóng vai trò công cụ bảo lãnh tín nhiệm chủ chốt.
+                        </p>
+                    </div>
                 </div>
             </div>
-            <!-- Đường (Line Chart) -->
-            <div class="card p-6">
-                <h2 class="text-base font-semibold text-slate-800 mb-4">Xu hướng Biến động (Biểu đồ Đường)</h2>
-                <div class="relative h-72 w-full">
-                    <canvas id="lineChart"></canvas>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <!-- Academic Assessment Section -->
-        <div class="card p-6 mt-6">
-            <h2 class="text-lg font-bold text-slate-800 border-b pb-2 mb-4">Phân tích Chuyên sâu (Đánh giá Cơ bản)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="font-semibold text-emerald-700 flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        Nghiệp vụ SBLC (Động lực mới)
-                    </h3>
-                    <ul class="mt-3 space-y-2 text-sm text-slate-600 list-disc pl-5">
-                        <li><strong class="text-slate-800">Điểm mạnh:</strong> Khẳng định năng lực bảo lãnh tài trợ dự án hạ tầng lớn. Tối ưu hóa an toàn vốn (CAR) và phí dịch vụ ngoại bảng. Khai thác tốt tệp khách hàng FDI và dự án năng lượng xanh.</li>
-                        <li><strong class="text-slate-800">Điểm yếu:</strong> Rủi ro đánh giá nghĩa vụ thực hiện hợp đồng phức tạp hơn so với rủi ro chứng từ L/C. Đòi hỏi năng lực pháp lý và quản trị thanh khoản ngoại tệ tức thời cao.</li>
-                    </ul>
+        <!-- LỚP 2: HIỆU QUẢ NGHIỆP VỤ & VỊ THẾ -->
+        <section class="space-y-6 relative pt-4">
+            <div class="absolute -left-6 top-0 w-1.5 h-full bg-blue-500 rounded-full hidden md:block opacity-50"></div>
+            
+            <div class="pl-0 md:pl-2">
+                <h2 class="text-2xl font-bold text-slate-800 layer-title layer-title-2 mb-8">Lớp 2: Hiệu quả Nghiệp vụ & Vị thế Thị trường</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="card p-6 border-t-4 border-t-blue-500">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Thị phần SWIFT (2024)</h3>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold text-blue-600">19,82%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2 mt-4">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 19.82%"></div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 font-medium">Tăng liên tục từ 18,5% (2022)</p>
+                    </div>
+                    <div class="card p-6 border-t-4 border-t-slate-800">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tổng Thu Dịch Vụ (2024)</h3>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold text-slate-800">13.143</span>
+                            <span class="text-sm font-medium text-slate-500">Tỷ đ</span>
+                        </div>
+                        <p class="text-xs text-emerald-600 mt-4 font-semibold flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            Tăng trưởng dương liên tiếp 3 năm
+                        </p>
+                    </div>
+                    <div class="card p-6 border-t-4 border-t-cyan-500">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Thu Dịch vụ Thanh toán (2024)</h3>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold text-cyan-600">7.484</span>
+                            <span class="text-sm font-medium text-slate-500">Tỷ đ</span>
+                        </div>
+                        <p class="text-xs text-emerald-600 mt-4 font-semibold flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            +24,7% so với năm 2022
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-slate-700 flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                        Nghiệp vụ L/C (Chân đế truyền thống)
-                    </h3>
-                    <ul class="mt-3 space-y-2 text-sm text-slate-600 list-disc pl-5">
-                        <li><strong class="text-slate-800">Điểm mạnh:</strong> Duy trì thị phần tuyệt đối trong TTQT-TTTM. Quy trình vận hành chuẩn hóa cao (Swift), nguồn thu phí ngoại tệ ổn định qua các chu kỳ.</li>
-                        <li><strong class="text-slate-800">Điểm yếu:</strong> Dễ bị tổn thương bởi suy giảm tổng cầu thương mại toàn cầu (giảm ~10%/năm gần đây). Cạnh tranh gay gắt về phí phát hành từ các NHTM tư nhân và ngân hàng ngoại.</li>
-                    </ul>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="card p-6 lg:col-span-2">
+                        <h3 class="text-base font-bold text-slate-800 mb-4">Động lực tăng trưởng Doanh thu (Tỷ VNĐ)</h3>
+                        <div class="relative h-72 w-full">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card p-6 bg-blue-50 border border-blue-100 flex flex-col justify-center">
+                        <h4 class="text-blue-700 font-bold mb-3 flex items-center text-lg">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            Vị thế áp đảo
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-700">
+                            Mặc dù mảng L/C (tài trợ thương mại vật lý) sụt giảm, VCB vẫn chứng minh được năng lực sinh lời vô đối. Tổng thu dịch vụ và Thu thanh toán không giảm mà còn <strong>tăng trưởng vững chắc</strong>.
+                            <br><br>
+                            Việc <strong>thị phần SWIFT tiệm cận mức 20%</strong> (cứ 5 giao dịch ngoại tệ của Việt Nam thì có 1 qua VCB) cho thấy ngân hàng đang hưởng lợi lớn từ dòng chảy vốn FDI và thanh toán phi vật thể, bù đắp hoàn toàn sự thiếu hụt của chuỗi cung ứng hàng hóa truyền thống.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
+        <!-- LỚP 3: ĐÁNH GIÁ HIỆU QUẢ PHÍ (MARGIN) -->
+        <section class="space-y-6 relative pt-4 mb-12">
+            <div class="absolute -left-6 top-0 w-1.5 h-full bg-amber-500 rounded-full hidden md:block opacity-50"></div>
+            
+            <div class="pl-0 md:pl-2">
+                <h2 class="text-2xl font-bold text-slate-800 layer-title layer-title-3 mb-8">Lớp 3: Đánh giá Hiệu quả Phí Dịch vụ (Biên lợi nhuận)</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card p-6 border-l-8 border-l-amber-400 relative overflow-hidden">
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Thu nhập Phí Bảo Lãnh (2024)</h3>
+                                <div class="mt-2 flex items-baseline gap-2">
+                                    <span class="text-4xl font-extrabold text-slate-800">448,4</span>
+                                    <span class="text-sm font-medium text-slate-500">Tỷ VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1.5 rounded-md shadow-sm">Giảm mạnh so với 2022 (572 tỷ)</span>
+                            </div>
+                        </div>
+                        <!-- Decorative icon -->
+                        <svg class="absolute -bottom-4 -right-4 w-24 h-24 text-amber-50 opacity-50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <div class="card p-6 border-l-8 border-l-rose-500 relative overflow-hidden">
+                        <div class="relative z-10 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Tỷ suất Phí / Quy mô SBLC (Yield)</h3>
+                                <div class="mt-2 flex items-baseline gap-2">
+                                    <span class="text-4xl font-extrabold text-rose-600">0,77%</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-rose-700 bg-rose-100 px-3 py-1.5 rounded-md shadow-sm">Rơi từ mốc đỉnh 1,18% (2022)</span>
+                            </div>
+                        </div>
+                        <!-- Decorative icon -->
+                        <svg class="absolute -bottom-4 -right-4 w-24 h-24 text-rose-50 opacity-50" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="card p-6 lg:col-span-2">
+                        <h3 class="text-base font-bold text-slate-800 mb-4">Nghịch lý Quy mô và Tỷ suất Lợi nhuận</h3>
+                        <div class="relative h-72 w-full">
+                            <canvas id="yieldChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card p-6 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 flex flex-col justify-center">
+                        <h4 class="text-rose-700 font-bold mb-3 flex items-center text-lg">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Cảnh báo thu hẹp Margin
+                        </h4>
+                        <p class="text-sm leading-relaxed text-slate-800">
+                            Bóc tách sâu vào lớp thứ 3 mang lại một phát hiện trái chiều (Paradox): <strong>Quy mô SBLC tăng rất tốt, nhưng Thu phí bảo lãnh lại giảm mạnh.</strong>
+                            <br><br>
+                            Implied Yield (Tỷ suất thu phí trên quy mô) đã rơi tự do từ <strong>1,18% (2022)</strong> xuống đáy 0,68% (2023) và chỉ phục hồi nhẹ lên <strong>0,77% (2024)</strong>. 
+                            <br><br>
+                            Điều này phản ánh <strong>áp lực cạnh tranh giá gay gắt</strong> từ các NHTM khác khiến VCB phải hy sinh biên lợi nhuận để giữ chân khách hàng lớn (Corporate). Ngoài ra, danh mục SBLC hiện tại có thể đang tập trung vào các tệp khách hàng "siêu định hạng" với rủi ro thấp hơn, dẫn đến mức phí áp dụng rẻ hơn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-slate-400 text-sm py-8 border-t border-slate-200">
+            &copy; 2026. Phân tích Dữ liệu Nội bộ. Nguồn: Báo cáo tài chính & Tài liệu IR Vietcombank.<br/>
+            Cấu trúc phân tích: Từ quy mô mảng -> Vị thế thị trường -> Đánh giá Margin.
+        </footer>
     </div>
 
-    <!-- Chart Configuration Script -->
+    <!-- Script Vẽ Biểu đồ -->
     <script>
-        // Dữ liệu từ báo cáo
-        const labels = ['2022', '2023', '2024'];
-        
-        // Dữ liệu (Quy đổi sang Tỷ VNĐ cho biểu đồ hiển thị đẹp hơn)
-        // 2022: L/C ~95,191, SBLC ~41,568
-        // 2023: L/C ~84,748, SBLC ~48,477
-        // 2024: L/C ~76,546, SBLC ~53,731
-        const dataLC = [95191, 84748, 76546]; 
-        const dataSBLC = [41568, 48477, 53731];
-
-        // Cấu hình chung
+        // Cấu hình chung Chart.js
         Chart.defaults.font.family = "'Inter', sans-serif";
         Chart.defaults.color = '#64748b';
+        Chart.defaults.scale.grid.color = '#f8fafc';
 
-        // 1. Khởi tạo Biểu đồ Cột (Bar Chart)
-        const ctxBar = document.getElementById('barChart').getContext('2d');
-        new Chart(ctxBar, {
+        const labels = ['2022', '2023', '2024'];
+
+        // ==========================================
+        // LỚP 1: Biểu đồ Cơ cấu 100% Stacked
+        // ==========================================
+        const lcData = [84748.8, 76546.1, 49750.0];
+        const sblcData = [48477.5, 53731.2, 58052.4];
+        
+        const pctLC = lcData.map((v, i) => (v / (v + sblcData[i]) * 100).toFixed(1));
+        const pctSBLC = sblcData.map((v, i) => (v / (v + lcData[i]) * 100).toFixed(1));
+
+        const ctxStruct = document.getElementById('structureChart').getContext('2d');
+        new Chart(ctxStruct, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'L/C Thương mại',
-                        data: dataLC,
-                        backgroundColor: '#94a3b8', // Slate 400
-                        borderRadius: 4,
-                        barPercentage: 0.6,
-                        categoryPercentage: 0.8
+                        label: 'L/C Thương mại (%)',
+                        data: pctLC,
+                        backgroundColor: '#94a3b8', // slate-400
+                        barPercentage: 0.5,
+                        borderRadius: {bottomLeft: 4, bottomRight: 4}
                     },
                     {
-                        label: 'SBLC (Bảo lãnh khác)',
-                        data: dataSBLC,
-                        backgroundColor: '#10b981', // Emerald 500
-                        borderRadius: 4,
-                        barPercentage: 0.6,
-                        categoryPercentage: 0.8
+                        label: 'Bảo lãnh khác - SBLC (%)',
+                        data: pctSBLC,
+                        backgroundColor: '#10b981', // emerald-500
+                        barPercentage: 0.5,
+                        borderRadius: {topLeft: 4, topRight: 4}
                     }
                 ]
             },
@@ -174,101 +305,130 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } },
                     tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('vi-VN').format(context.parsed.y) + ' Tỷ đ';
-                                }
-                                return label;
-                            }
-                        }
+                        callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' }
                     }
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { borderDash: [4, 4] },
-                        ticks: {
-                            callback: function(value) { return value / 1000 + 'k'; }
-                        }
-                    },
-                    x: { grid: { display: false } }
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, max: 100, ticks: { callback: v => v + '%' } }
                 }
             }
         });
 
-        // 2. Khởi tạo Biểu đồ Đường (Line Chart)
-        const ctxLine = document.getElementById('lineChart').getContext('2d');
-        new Chart(ctxLine, {
+        // ==========================================
+        // LỚP 2: Biểu đồ Thu nhập dịch vụ & Thanh toán
+        // ==========================================
+        const totalIncome = [12425, 12698, 13143];
+        const paymentIncome = [6001, 6653, 7485];
+        
+        const ctxRev = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctxRev, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'L/C Thương mại',
-                        data: dataLC,
-                        borderColor: '#64748b', // Slate 500
-                        backgroundColor: 'rgba(100, 116, 139, 0.1)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#64748b',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
+                        label: 'Tổng Thu nhập Dịch vụ',
+                        data: totalIncome,
+                        borderColor: '#0f172a', // slate-900
+                        backgroundColor: '#0f172a',
+                        borderWidth: 2,
                         tension: 0.3,
-                        fill: true
+                        borderDash: [5, 5],
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff'
                     },
                     {
-                        label: 'SBLC (Bảo lãnh khác)',
-                        data: dataSBLC,
-                        borderColor: '#10b981', // Emerald 500
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        label: 'Thu nhập Dịch vụ Thanh toán',
+                        data: paymentIncome,
+                        borderColor: '#06b6d4', // cyan-500
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
                         borderWidth: 3,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#10b981',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
+                        fill: true,
                         tension: 0.3,
-                        fill: true
+                        pointRadius: 4,
+                        pointBackgroundColor: '#fff'
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) { label += ': '; }
-                                if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('vi-VN').format(context.parsed.y) + ' Tỷ đ';
-                                }
-                                return label;
-                            }
-                        }
-                    }
+                interaction: { mode: 'index', intersect: false },
+                plugins: { 
+                    legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } 
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { borderDash: [4, 4] },
-                        ticks: {
-                            callback: function(value) { return value / 1000 + 'k'; }
-                        }
+                    x: { grid: { display: false } },
+                    y: { beginAtZero: false }
+                }
+            }
+        });
+
+        // ==========================================
+        // LỚP 3: Biểu đồ Dual Axis (Quy mô SBLC vs Yield)
+        // ==========================================
+        const yieldData = [1.18, 0.68, 0.77];
+
+        const ctxYield = document.getElementById('yieldChart').getContext('2d');
+        new Chart(ctxYield, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Quy mô SBLC (Tỷ VNĐ)',
+                        data: sblcData,
+                        backgroundColor: '#f1f5f9', // slate-100
+                        borderColor: '#cbd5e1',
+                        borderWidth: 1,
+                        yAxisID: 'y',
+                        barPercentage: 0.6,
+                        borderRadius: 4
                     },
-                    x: { grid: { display: false } }
+                    {
+                        type: 'line',
+                        label: 'Tỷ suất Phí / Quy mô (%)',
+                        data: yieldData,
+                        borderColor: '#f43f5e', // rose-500
+                        backgroundColor: '#f43f5e',
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 2,
+                        yAxisID: 'y1',
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: { 
+                    legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } 
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: 'Tỷ VNĐ', font: {size: 12} },
+                        grid: { display: false }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: 'Tỷ suất (%)', font: {size: 12} },
+                        min: 0,
+                        max: 1.5,
+                        grid: { drawOnChartArea: false }
+                    }
                 }
             }
         });
